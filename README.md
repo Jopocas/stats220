@@ -4,7 +4,7 @@
 
 <h5>A little about me:</h5>
 
-<ol> <li>I am undertaking a degree in <strong>Computer Science.</strong> </li>
+<ol> <li>I am undertaking a degree in <a href="https://tinyurl.com/uoacompsci"> <strong> Computer Science. </strong> </a> </li>
 <li>I am taking <em>STATS 220</em> because I really find this content interesting and believe it to be a very good paper for my future.</li>
 </ol>
 - I am interested in learning about <em><strong>Computer Graphics and data processing.</em></strong>
