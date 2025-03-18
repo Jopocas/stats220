@@ -11,9 +11,8 @@
 
 A meme that captures how I currently feel about my university studies is
 
-
 ![](https://media1.tenor.com/m/Ki9hLQ4Zl7UAAAAC/trollface-troll-face.gif)
 
 Here is a new meme to show my <em><strong>STATS 220</strong></em> enjoyment:
 
-![]([https://i.pinimg.com/564x/b6/08/5a/b6085a9c08a5e57417153de84942438a.jpg](https://media.tenor.com/ejEmffduuQYAAAAj/happy-cat.gif))
+![](https://media.tenor.com/ejEmffduuQYAAAAj/happy-cat.gif)
