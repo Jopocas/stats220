@@ -1,0 +1,79 @@
+---
+title: Spending & Deal Trends for Customers
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #e6f9e6; /* Light green background */
+}
+
+h2 {
+  color: #FF746C;
+}
+
+
+
+
+```
+
+## This report helps visualise whether customers who came in were either returning or new customers, gives insight as to which deals each selected and also gives insights as to what 'misc' purchases were made.
+
+
+```{r}
+library(tidyverse)
+
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTeO_y5uP3SOOPgoGROfAnTejPBOzDRg9I_r_wxhp9vMpFuQ0ppDiOaHdKCiFzSREuyGnvotemWxVL4/pub?output=csv")
+
+latest_data <- logged_data %>%
+  rename(
+    timestamp = `Timestamp`,
+    day = `What day of the week is it?`,
+    deal = `What deal is being purchased?`,
+    misc_amount = `If you selected 'Misc' How much was spent?`,
+    returning_customer = `Are they a returning customer (Do they already have a card)?`,
+    items = `Did they get drink or food items?`
+  )
+
+# Clean and prepare data
+latest_data <- latest_data %>%
+  mutate(misc_amount = as.numeric(misc_amount))
+
+# Summary values for dynamic comments
+average_misc <- mean(latest_data$misc_amount, na.rm = TRUE)
+most_common_deal <- names(sort(table(latest_data$deal), decreasing = TRUE))[1]
+returning_count <- sum(latest_data$returning_customer == "Yes", na.rm = TRUE)
+total_count <- nrow(latest_data)
+
+# Bar chart: Deal vs Items
+ggplot(latest_data, aes(x = deal, fill = items)) +
+  geom_bar(position = "dodge") +
+  theme_minimal() +
+  labs(title = "Deals vs. Items (Food or Drink)",
+       x = "Deal Selected",
+       y = "Number of Customers") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+paste("On average, customers who made a 'Misc' purchase spent $", round(average_misc, 2), ". This helps illustrate the range of custom orders and pricing.")
+```
+## Most Popular Deal: `r paste0(most_common_deal)`
+```{r}
+# Bar chart: Deal selected and returning status
+ggplot(latest_data, aes(x = deal, fill = returning_customer)) +
+  geom_bar(position = "dodge") +
+  theme_minimal() +
+  labs(title = "Deals Selected by Returning vs. New Customers",
+       x = "Deal Selected",
+       y = "Number of Customers",
+       fill = "Returning Customer?") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+paste0("Out of ", total_count, " total customers, ", returning_count, " were returning — that’s roughly ", round(returning_count / total_count * 100, 1), "%.")
+```
+
