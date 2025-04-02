@@ -28,6 +28,9 @@ h2 {
 ## This report helps visualise whether customers who came in were either returning or new customers, gives insight as to which deals each selected and also gives insights as to what 'misc' purchases were made.
 
 
+
+
+## Graph 1
 ```{r}
 library(tidyverse)
 
@@ -63,7 +66,7 @@ ggplot(latest_data, aes(x = deal, fill = items)) +
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 paste("On average, customers who made a 'Misc' purchase spent $", round(average_misc, 2), ". This helps illustrate the range of custom orders and pricing.")
 ```
-## Most Popular Deal: `r paste0(most_common_deal)`
+## Graph 2
 ```{r}
 # Bar chart: Deal selected and returning status
 ggplot(latest_data, aes(x = deal, fill = returning_customer)) +
