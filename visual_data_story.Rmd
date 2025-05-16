@@ -10,23 +10,27 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 ```
 
 ```{js}
-$(function() {
-  $(".level2").css('visibility', 'hidden');
-  $(".level2").first().css('visibility', 'visible');
-  $(".container-fluid").height($(".container-fluid").height() + 300);
-  $(window).on('scroll', function() {
-    $('h2').each(function() {
-      var h2Top = $(this).offset().top - $(window).scrollTop();
-      var windowHeight = $(window).height();
-      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
-        $(this).parent('div').css('visibility', 'visible');
-      } else if (h2Top > windowHeight / 2) {
-        $(this).parent('div').css('visibility', 'hidden');
+$(function () {
+  $(".level2").css({ opacity: 0, transform: "translateY(40px)" });
+
+  $(window).on("scroll", function () {
+    $(".level2").each(function () {
+      var top = $(this).offset().top;
+      var winTop = $(window).scrollTop();
+      var winHeight = $(window).height();
+
+      if (top < winTop + winHeight * 0.8) {
+        $(this).css({
+          opacity: 1,
+          transform: "translateY(0)",
+          transition: "opacity 1s ease-out, transform 0.8s ease-out",
+        });
       }
     });
   });
-})
+});
 ```
+
 
 ```{css}
 body {
@@ -36,6 +40,27 @@ body {
 }
 h2 {
   color: #ff66ff;
+}
+
+/* Glow effect */
+h2, p, img {
+  text-shadow: 0 0 5px #ff66ff, 0 0 10px #da70d6;
+}
+
+/* Glide-in animation */
+.glide {
+  animation: glideUp 0.8s ease-out;
+}
+
+@keyframes glideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 ```
 
@@ -79,5 +104,3 @@ knitr::include_graphics("plot5.png")
 *This bar chart shows the average number of people per group at each hour of the day. Allows us to visualise when bigger groups of people come into the arcade. From my observations it seemed to be many groups of families or pre booked parties.*
 
 ## Payment Method Trends Over Time
-
-```{r}
