@@ -1,0 +1,83 @@
+---
+title: "Customer Behaviour Visual Data Story"
+output: html_document
+---
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+```{js}
+$(function() {
+  $(".level2").css('visibility', 'hidden');
+  $(".level2").first().css('visibility', 'visible');
+  $(".container-fluid").height($(".container-fluid").height() + 300);
+  $(window).on('scroll', function() {
+    $('h2').each(function() {
+      var h2Top = $(this).offset().top - $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'visible');
+      } else if (h2Top > windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'hidden');
+      }
+    });
+  });
+})
+```
+
+```{css}
+body {
+  background-color: #1c1c1c;
+  color: #ffccff;
+  font-family: Courier, monospace;
+}
+h2 {
+  color: #ff66ff;
+}
+```
+
+## Overview of the Observational Dataset
+
+This project analyses customer behaviour using observational data collected through a Google Form. The goal is to identify purchasing trends, payment methods, and group dynamics across time and day.
+
+## Purchases by Day of the Week
+
+```{r}
+knitr::include_graphics("plot1.png")
+```
+*This bar chart shows which days of the week had the most purchases. This is overall helpful to identify when it is needed to have extra staff working. *
+
+## Distribution of Payment Methods
+
+```{r}
+knitr::include_graphics("plot2.png")
+```
+*This pie chart presents the overall distribution of payment methods used by customers. However there is a mistake which I later fixed with another "plot 4". The Issue is that my previously collected data did not contain the different payment option question and was  later added when revisiting the project.*
+
+## Purchases by Time of Day (30-Minute Intervals)
+
+```{r}
+knitr::include_graphics("plot3.png")
+```
+*This histogram reveals when purchases tend to occur most frequently throughout the day. Very helpful to understand trends throughout the day.*
+
+## Payment Method Distribution (Newer Observations Only)
+
+```{r}
+knitr::include_graphics("plot4.png")
+```
+*This chart filters the data to show payment methods starting from the 46th recorded purchase. As I had spoken before this only includes the newer data which was collected with this question in mind.*
+
+## Average Group Size by Hour
+
+```{r}
+knitr::include_graphics("plot5.png")
+```
+*This bar chart shows the average number of people per group at each hour of the day. Allows us to visualise when bigger groups of people come into the arcade. From my observations it seemed to be many groups of families or pre booked parties.*
+
+## Payment Method Trends Over Time
+
+```{r}
